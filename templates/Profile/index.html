@@ -1,0 +1,159 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+<!-- Navbar -->
+
+{% block navigation %}
+
+  <li class="nav-item">
+    <a class="nav-link js-scroll-trigger" href="#aboutme">About me</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link js-scroll-trigger" href="#blog">Blog</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link js-scroll-trigger" href="#projects">Projects</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link js-scroll-trigger" href="{% url "Profile:resume" %}">Resume</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link js-scroll-trigger" href="#signup">Contact</a>
+  </li>
+
+{% endblock %}
+
+<!-- Heading Text  -->
+
+{% block heading_text %}{{blurb}}{% endblock %}
+
+{% block content %}
+
+<!-- About Section -->
+
+  <section id="aboutme" class="aboutme-section bg-light">
+    <div class="container">
+      <div class="jumbotron">
+        <div class="row align-items-center no-gutters mb-4 mb-lg-5">
+          <div class="col-xl-6 col-lg-5 pl-5">
+            <div class="featured-text text-center text-lg-left">
+              <p class="text-white-50 pl-5 pr-5 pb-0">
+                {% if about_me %}
+                  {{ about_me.description }}
+                {% else %}
+                  Lorem ipsum
+                {% endif %}
+              </p>
+            </div>
+          </div>
+          <div class="col-xl-6 col-lg-7 pl-5">
+            {% if about_me %}
+              <img class="profile_pic" src="{{ about_me.profile_picture.url }}" alt="">
+            {% else %}
+              <img class="profile_pic" src="{% static "base/img/Cthulhu.png" %}" alt="">
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!-- Blog Section -->
+
+  <section id="blog" class="blog-section bg-light">
+    <div class="container">
+      <div class="row align-items-center no-gutters mb-4 mb-lg-5">
+        <div class="col-xl-8 col-lg-7">
+          <div class="card text-center">
+            <div class="card-header">
+              <h4 class="text-white">Featured</h4>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">{{ recent_blogpost.title }}</h5>
+              <p class="card-text">{{ recent_blogpost.preview }}</p>
+              <a href="{% url "Blog:Blog_index" %}" class="btn btn-primary">Visit the Blog</a>
+            </div>
+            <div class="card-footer text-muted">
+              {{ recent_blogpost.posted_at }}
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-4 col-lg-5">
+          <div class="featured-text text-center text-lg-left">
+            <h4>List of older blogs</h4>
+            <p class="text-black-50 mb-0">The list here probably</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!-- Projects Section -->
+  <section id="projects" class="projects-section bg-light">
+    <div class="container">
+
+
+      {% for project in projects %}
+
+      <!-- Project picture left-aligned -->
+        {% if forloop.counter0|divisibleby:2 %}
+          <div class="row justify-content-center no-gutters mb-5 mb-lg-0">
+            <div class="col-lg-6">
+              <div class="imagewrap">
+                <img class="img-fluid" src="{{ project.project_picture.url }}" alt="">
+              </div>
+              <div class="aligner">
+                <div class="button-container">
+                  <a class="enbBtn" href="{{ project.project_url }}"><strong>VIEW PROJECT</strong></a>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="bg-black text-center h-100 project">
+                <div class="d-flex h-100">
+                  <div class="project-text w-100 my-auto text-center text-lg-left">
+                    <h4 class="text-white">{{ project.title }}</h4>
+                    <p class="mb-0 text-white-50">{{ project.summary }}</p>
+                    <hr class="d-none d-lg-block mb-0 ml-0">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        {% else %}
+          <!-- Project picture right-aligned -->
+          <div class="row justify-content-center no-gutters">
+            <div class="col-lg-6">
+              <div class="imagewrap">
+                <img class="img-fluid" src="{{ project.project_picture.url }}" alt="">
+              </div>
+              <div class="aligner">
+                <div class="button-container">
+                  <a class="enbBtn" href="#"><strong>VIEW PROJECT</strong></a>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6 order-lg-first">
+              <div class="bg-black text-center h-100 project">
+                <div class="d-flex h-100">
+                  <div class="project-text w-100 my-auto text-center text-lg-right">
+                    <h4 class="text-white">{{ project.title }}</h4>
+                    <p class="mb-0 text-white-50">{{ project.summary }}</p>
+                    <hr class="d-none d-lg-block mb-0 mr-0">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        {% endif %}
+        {% endfor %}
+
+    </div>
+  </section>
+
+
+<script src="{% static "base/js/Projects.js" %}" charset="utf-8"></script>
+
+{% endblock %}

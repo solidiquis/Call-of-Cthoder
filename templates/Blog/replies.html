@@ -1,0 +1,110 @@
+{% load staticfiles %}
+
+<div class="reply-section">
+
+  {% if replied %}
+  <script src="{% static "base/js/reply_vote.js" %}" charset="utf-8"></script>
+  <script src="{% static "base/js/reply_secondary.js" %}" charset="utf-8"></script>
+  <script src="{% static "base/js/delete_comment.js" %}" charset="utf-8"></script>
+
+    {% for reply in parent_comment.replies.all reversed %}
+    <div class="reply-container">
+      <div class="comment-name-date">
+        <h6><strong>{{ reply.user }}</strong> | {{ reply.commented_at }}</h6>
+      </div>
+      <div class="reply-body">
+        {{reply.reply_body}}
+      </div>
+      <div class="vote-reply-score">
+        <span class="score" data-id="{{ reply.pk }}" >{{ reply.score }}</span>
+          <a class="reply_upvote" comment-id="{{ reply.pk }}" href="{% url "Blog:Vote" comment_pk=reply.pk vote_type="upvote" %}"><i class="fas fa-chevron-up"></i></a>
+          |
+          <a class="reply_downvote" comment-id="{{ reply.pk }}" href="{% url "Blog:Vote" comment_pk=reply.pk vote_type="downvote" %}"><i class="fas fa-chevron-down"></i></a>
+          <a class="reply reply-secondary" parent-comment-id="{{ parent_comment.pk }}" reply-id="{{ reply.pk }}"><u>Reply</u></a>
+          {% if user == reply.user %}
+          <span class="change-comment" comment-id="{{ reply.pk }}" >
+            <a class="edit_comment" comment-id="{{ reply.pk }" href="#"><u>Edit</u></a>
+            <a class="delete_comment" comment-id="{{ reply.pk }" href="{% url "Blog:Delete_comment" comment_pk=reply.pk %}"><u>Delete</u></a>
+          </span>
+          <span class="confirm-delete" comment-id="{{ reply.pk }}" style="display:none">
+            Are you sure?
+            <a class="confirm-delete-yes" comment-id="{{ reply.pk }}" href="{% url "Blog:Delete_comment" comment_pk=reply.pk %}">yes</a> /
+            <a class="confirm-delete-no" comment-id="{{ reply.pk }}" href="#">no</a>
+          </span>
+          {% endif %}
+      </div>
+    </div>
+
+    <div class="reply-comment-form">
+        <form class="reply-secondary-form" parent-comment-id="{{ parent_comment.pk }}" reply-id="{{ reply.pk }}" style="display:none" enctype="multipart/form-data" action="{% url "Blog:Reply" parent_comment_pk=parent_comment.pk %}" method="post">
+            <div class="reply-text">
+              <textarea name="reply_body" rows="8" cols="80"></textarea>
+              <div class="reply-form-buttons">
+                <input class="btn btn-primary submit-reply" reply-id="{{ reply.pk }}" parent-comment-id="{{ parent_comment.pk }}" type="submit" name="" value="Submit">
+                <button class="btn btn-primary cancel-reply cancel-reply-secondary" reply-id="{{ reply.pk }}" parent-comment-id="{{ parent_comment.pk }}" type="button" name="">Cancel</button>
+              </div>
+            </div>
+            {% csrf_token %}
+        </form>
+    </div>
+
+    {% endfor %}
+
+
+  {% else %}
+
+    {% for reply in comment.replies.all reversed %}
+    <div class="reply-container">
+      <div class="comment-name-date">
+        <h6><strong>{{ reply.user }}</strong> | {{ reply.commented_at }}</h6>
+      </div>
+      <div class="reply-body">
+        {{reply.reply_body}}
+      </div>
+      <div class="vote-reply-score">
+        <span class="score" data-id="{{ reply.pk }}" >{{ reply.score }}</span>
+            {% if user.is_authenticated %}
+            <a class="upvote" comment-id="{{ reply.pk }}" href="{% url "Blog:Vote" comment_pk=reply.pk vote_type="upvote" %}"><i class="fas fa-chevron-up"></i></a>
+            |
+            <a class="downvote" comment-id="{{ reply.pk }}" href="{% url "Blog:Vote" comment_pk=reply.pk vote_type="downvote" %}"><i class="fas fa-chevron-down"></i></a>
+            <a class="reply reply-secondary" parent-comment-id="{{ comment.pk }}" reply-id="{{ reply.pk }}"><u>Reply</u></a>
+            {% if user == reply.user %}
+            <span class="change-comment" comment-id="{{ reply.pk }}" >
+              <a class="edit_comment" comment-id="{{ reply.pk }" href="#"><u>Edit</u></a>
+              <a class="delete_comment" comment-id={{ reply.pk }} href="{% url "Blog:Delete_comment" comment_pk=reply.pk %}"><u>Delete</u></a>
+            </span>
+            <span class="confirm-delete" comment-id="{{ reply.pk }}" style="display:none">
+              Are you sure?
+              <a class="confirm-delete-yes" comment-id="{{ reply.pk }}" href="{% url "Blog:Delete_comment" comment_pk=reply.pk %}">yes</a> /
+              <a class="confirm-delete-no" comment-id="{{ reply.pk }}" href="#">no</a>
+            </span>
+            {% endif %}
+          {% else %}
+            <a class="vote-unauth"><i class="fas fa-chevron-up"></i></a>
+            |
+            <a class="vote-unauth"><i class="fas fa-chevron-down"></i></a>
+            <a class="vote-unauth"><u>Reply</u></a>
+          {% endif %}
+      </div>
+    </div>
+
+    <div class="reply-comment-form">
+        <form class="reply-secondary-form" parent-comment-id="{{ comment.pk }}" reply-id="{{ reply.pk }}" style="display:none" enctype="multipart/form-data" action="{% url "Blog:Reply" parent_comment_pk=comment.pk %}" method="post">
+            <div class="reply-text">
+              <textarea name="reply_body" rows="8" cols="80"></textarea>
+              <div class="reply-form-buttons">
+                <input class="btn btn-primary submit-reply" reply-id="{{ reply.pk }}" parent-comment-id="{{ comment.pk }}" type="submit" name="" value="Submit">
+                <button class="btn btn-primary cancel-reply cancel-reply-secondary" reply-id="{{ reply.pk }}" parent-comment-id="{{ comment.pk }}" type="button" name="">Cancel</button>
+              </div>
+            </div>
+            {% csrf_token %}
+        </form>
+    </div>
+
+
+    {% endfor %}
+
+  {% endif %}
+
+
+</div>
