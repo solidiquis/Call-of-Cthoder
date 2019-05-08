@@ -37,6 +37,7 @@ $(document).ready(function(){
   })
 })
 
+// Ajax call for deleting comment; re-renders comment section.
 $(document).ready(function(){
   $('.confirm-delete-yes').click(function(e){
     e.preventDefault();

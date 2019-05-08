@@ -6,6 +6,7 @@
 <script src="{% static "base/js/vote.js" %}" charset="utf-8"></script>
 <script src="{% static "base/js/reply.js" %}" charset="utf-8"></script>
 <script src="{% static "base/js/delete_comment.js" %}" charset="utf-8"></script>
+<script src="{% static "base/js/edit_comment.js" %}" charset="utf-8"></script>
 
   {% for comment in comments %}
     {% if not comment.is_reply %}

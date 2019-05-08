@@ -5,11 +5,17 @@ $(document).ready(function(){
 		var this_ = $(this);
 		var replyID = this_.attr('reply-id')
 		var allForms = $('.reply-secondary-form');
+		var allEditForms = $('.edit-reply-secondary-form');
 
-		//Closes all other open comment-reply-forms
+		//Closes all other open comment-reply-forms and edit forms
 		for (let form of allForms){
 			form.style.display = 'none'
 		};
+
+		for (let form of allEditForms){
+			form.style.display = 'none'
+		};
+
 		$(`.reply-secondary-form[reply-id="${replyID}"]`).css('display', 'flex')
 	})
 });

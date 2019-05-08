@@ -566,7 +566,7 @@ footer {
   color: #0C3C26 !important;
 }
 
-.cancel-reply{
+.cancel-reply, .cancel-edit{
     margin-left: 13px;
     padding-right: 26px;
     margin-right: 7px;

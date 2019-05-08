@@ -186,12 +186,21 @@ def VotesView(request, comment_pk, vote_type):
 
     return response
 
-def DeleteComment(request, comment_pk):
+def UpdateDeleteComment(request, comment_pk):
     response = HttpResponseRedirect(reverse_lazy('Blog:Blog_index'))
+    path = request.META.get('PATH_INFO')
 
     comment = get_object_or_404(Comment, pk=comment_pk)
     blogpost = comment.blogpost
-    comment.delete()
+
+    if request.method == 'POST':
+        if 'Delete' in path:
+            comment.delete()
+        elif 'Update' in path:
+            if comment.is_reply:
+                edit = request.POST.get('edit_body')
+                comment.reply_body = edit
+                comment.save()
 
     if request.is_ajax():
         template_context = {
@@ -199,10 +208,11 @@ def DeleteComment(request, comment_pk):
             'comments': blogpost.comments.all(),
             'user': request.user,
             }
-        comment_sec = render_to_string('Blog/comments.html', template_context)
+        comment_sec = render_to_string(
+            'Blog/comments.html',
+            template_context,
+            request=request
+            )
         response = JsonResponse({'comments': comment_sec})
 
     return response
-
-def UpdateComment(request, comment_pk):
-    pass
