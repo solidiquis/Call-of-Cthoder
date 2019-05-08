@@ -1,6 +1,6 @@
 from django.urls import path
-from .views import (BlogIndexView, DeleteComment, Login, LogOut, ReplyView,
-                    Registration, VotesView)
+from .views import (BlogIndexView, Login, LogOut, ReplyView, Registration, 
+                    UpdateDeleteComment, VotesView)
 
 app_name = 'Blog'
 
@@ -11,8 +11,13 @@ urlpatterns = [
         ),
     path(
         'Comment/Delete/<int:comment_pk>/',
-        DeleteComment,
+        UpdateDeleteComment,
         name='Delete_comment',
+        ),
+    path(
+        'Comment/Update/<int:comment_pk>/',
+        UpdateDeleteComment,
+        name='Update_comment',
         ),
     path(
         'Login/',
