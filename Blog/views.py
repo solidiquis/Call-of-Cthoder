@@ -204,6 +204,10 @@ def UpdateDeleteComment(request, comment_pk):
                 edit = request.POST.get('edit_body')
                 comment.reply_body = edit
                 comment.save()
+            else:
+                edit = request.POST.get('edited-parent-comment')
+                comment.body = edit
+                comment.save()
 
     if request.is_ajax():
         template_context = {

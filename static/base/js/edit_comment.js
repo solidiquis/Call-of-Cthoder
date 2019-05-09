@@ -101,5 +101,26 @@ $(document).ready(function(){
     form.css('display', 'none');
   });
 
+  $('.edit-parent-form').submit(function(e){
+    e.preventDefault();
 
+    // Updates editor element so data can be serialized after first submit.
+    for (var instance in CKEDITOR.instances){
+      CKEDITOR.instances[instance].updateElement()
+    };
+
+    var this_ = $(this);
+    var urlEndpoint = this_.attr('action');
+    var commentID = this_.attr('comment-id');
+    var formData = this_.serialize();
+
+    $.ajax({
+      url: urlEndpoint,
+      method: 'POST',
+      data: formData,
+      success: function(response){
+        $('.comments-section').html(response['comments'])
+      },
+    })
+  })
 })
