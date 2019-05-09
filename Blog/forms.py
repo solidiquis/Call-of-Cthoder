@@ -1,8 +1,11 @@
+from ckeditor.widgets import CKEditorWidget
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
+
 from .models import Comment
 from .mixins import FormFields
+
 
 class LoginForm(forms.Form, FormFields):
     username = forms.CharField(max_length=50)
@@ -50,3 +53,10 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ('body', )
+
+class EditCommentForm(forms.Form):
+    content = forms.CharField(widget=CKEditorWidget(config_name='edit_comment'))
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['content'].label = ''

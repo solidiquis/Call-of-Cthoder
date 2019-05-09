@@ -15,7 +15,7 @@
         <div class="comment-name-date">
           <h6><strong>{{ comment.user }}</strong> | {{ comment.commented_at }}</h6>
         </div>
-        <div class="comment-body">
+        <div class="comment-body" comment-id="{{ comment.pk }}" >
           {{ comment.body|safe }}
         </div>
         <div class="vote-reply-score">
@@ -26,7 +26,7 @@
             <a class="reply" comment-id="{{ comment.pk }}" ><u>Reply</u></a>
             {% if user == comment.user %}
             <span class="change-comment" comment-id="{{ comment.pk }}">
-              <a class="edit_comment" comment-id="{{ comment.pk }" href="#"><u>Edit</u></a>
+              <a class="edit_comment" comment-id="{{ comment.pk }}" href="#"><u>Edit</u></a>
               <a class="delete_comment" comment-id={{ comment.pk }} href="{% url "Blog:Delete_comment" comment_pk=comment.pk %}"><u>Delete</u></a>
             </span>
             <span class="confirm-delete" comment-id="{{ comment.pk }}" style="display:none">
@@ -67,7 +67,7 @@
         <div class="comment-name-date">
           <h6><strong>{{ comment.user }}</strong> | {{ comment.commented_at }}</h6>
         </div>
-        <div class="comment-body">
+        <div class="comment-body" comment-id="{{ comment.pk }}" >
           {{ comment.body|safe }}
         </div>
         <div class="vote-reply-score">
@@ -78,7 +78,7 @@
               <a class="downvote" comment-id="{{ comment.pk }}" href="{% url "Blog:Vote" comment_pk=comment.pk vote_type="downvote" %}"><i class="fas fa-chevron-down"></i></a>
               <a class="reply" comment-id="{{ comment.pk }}" ><u>Reply</u></a>
               <span class="change-comment" style="display:''" comment-id="{{ comment.pk }}">
-                <a class="edit_comment" comment-id="{{ comment.pk }" href="#"><u>Edit</u></a>
+                <a class="edit_comment edit-parent" comment-id="{{ comment.pk }}" href="#"><u>Edit</u></a>
                 <a class="delete_comment" comment-id={{ comment.pk }} href="{% url "Blog:Delete_comment" comment_pk=comment.pk %}"><u>Delete</u></a>
               </span>
               <span class="confirm-delete" comment-id="{{ comment.pk }}" style="display:none">
@@ -94,6 +94,7 @@
             {% endif %}
         </div>
         <div class="reply-comment-form">
+
             <form class='reply-form' comment-id="{{ comment.pk }}" style="display:none" enctype="multipart/form-data" action="{% url "Blog:Reply" parent_comment_pk=comment.pk %}" method="post">
                 <div class="reply-text">
                   <textarea name="reply_body" rows="8" cols="80"></textarea>
@@ -104,13 +105,25 @@
                 </div>
                 {% csrf_token %}
             </form>
-        </div>
 
+            <form class='edit-parent-form' comment-id="{{ comment.pk }}" style="display:none" enctype="multipart/form-data" action="{% url "Blog:Reply" parent_comment_pk=comment.pk %}" method="post">
+                <div class="parent-editor" comment-id="{{ comment.pk }}">
+
+                  <textarea id="{{ comment.pk }}" name="name" rows="8" cols="80"></textarea>
+
+                  <div class="edit-parent-form-buttons">
+                    <input class="btn btn-primary submit-parent-edit" comment-id="{{ comment.pk }}" type="submit" name="" value="Submit">
+                    <button class="btn btn-primary cancel-parent-edit" comment-id="{{ comment.pk }}" type="button" name="">Cancel</button>
+                  </div>
+                </div>
+                {% csrf_token %}
+            </form>
+
+        </div>
 
           <div class="replies" comment-id="{{ comment.pk }}" >
             {% include "Blog/replies.html" %}
           </div>
-
 
       </div>
     {% endif %}

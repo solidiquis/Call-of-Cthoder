@@ -10,6 +10,12 @@ $(document).ready(function(){
 		for (let form of allForms){
 			form.style.display = 'none'
 		};
+
+		// Closes all other open editing forms.
+		for (let editForm of $('.edit-parent-form')){
+			editForm.style.display = 'none'
+		};
+		
 		$(`.reply-form[comment-id="${commentID}"]`).css('display', 'flex')
 	})
 });

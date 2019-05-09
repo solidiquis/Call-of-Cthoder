@@ -127,4 +127,15 @@ CKEDITOR_CONFIGS = {
         'height': 200,
         'width': 1110,
     },
+    'edit_comment': {
+        'skin': 'moono-lisa',
+        'toolbar': 'Custom',
+        'toolbar_Custom': [
+            ['Styles'],
+            ['Bold', 'Italic', 'Underline'],
+            ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+            ],
+        'height': 200,
+        'width': 1110,
+    },
 }

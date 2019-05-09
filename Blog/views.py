@@ -1,3 +1,5 @@
+import re
+
 from django.contrib.auth import get_user_model
 from django.contrib.auth.views import LogoutView, LoginView
 from django.core import serializers
@@ -9,9 +11,9 @@ from django.urls import reverse_lazy
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView, FormView
 from django.views.generic.list import ListView
-from .forms import CommentForm, LoginForm, RegistrationForm
+
+from .forms import CommentForm, EditCommentForm, LoginForm, RegistrationForm
 from .models import BlogPost, Comment
-import re
 
 def Registration(request):
 
@@ -67,6 +69,7 @@ class BlogIndexView(FormView, ListView):
         context = super().get_context_data(**kwargs)
         context['login_form'] = LoginForm
         context['registration_form'] = RegistrationForm
+        context['edit_comment_form'] = EditCommentForm
 
         try:
             error_type = self.kwargs['error_type']

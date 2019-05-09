@@ -566,7 +566,7 @@ footer {
   color: #0C3C26 !important;
 }
 
-.cancel-reply, .cancel-edit{
+.cancel-reply, .cancel-edit, .cancel-parent-edit{
     margin-left: 13px;
     padding-right: 26px;
     margin-right: 7px;
@@ -604,4 +604,8 @@ footer {
 
 .confirm-delete{
   color: rgba(68, 183, 139, 1);
+}
+
+.edit-parent-form-buttons{
+  margin-top: 5px;
 }
