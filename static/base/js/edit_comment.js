@@ -73,7 +73,11 @@ $(document).ready(function(){
 
     // Closes all other open editing forms.
     for (let editForm of $('.edit-parent-form')){
-      editForm.style.display = 'none'
+      var id = editForm.getAttribute('comment-id');
+      editForm.style.display = 'none';
+      if (CKEDITOR.instances[id]){
+        CKEDITOR.instances[id].destroy();
+      }
     };
 
     // Closes all other open reply forms.
@@ -82,6 +86,7 @@ $(document).ready(function(){
     };
 
     // Renders ckeditor under the appropriate comment with matching IDs.
+    // Initialized with original comment data.
     CKEDITOR.replace(commentID, editor_config);
     CKEDITOR.instances[commentID].setData(origContent);
     form.css('display', 'flex');
@@ -92,6 +97,7 @@ $(document).ready(function(){
     var this_ = $(this);
     var commentID = this_.attr('comment-id');
     var form = $(`.edit-parent-form[comment-id="${commentID}"]`);
+    CKEDITOR.instances[commentID].destroy();
     form.css('display', 'none');
   });
 
