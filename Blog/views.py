@@ -145,7 +145,7 @@ class BlogIndexView(FormView, ListView):
     def form_invalid(self, form):
         return HttpResponseRedirect(self.get_success_url())
 
-def ReplyView(request, parent_comment_pk):
+def ReplyHandler(request, parent_comment_pk):
     response = HttpResponseRedirect(reverse_lazy('Blog:Blog_index'))
 
     parent_comment = Comment.objects.get(pk=parent_comment_pk)
@@ -174,7 +174,7 @@ def ReplyView(request, parent_comment_pk):
 
     return response
 
-def VotesView(request, comment_pk, vote_type):
+def VotesHandler(request, comment_pk, vote_type):
     response = HttpResponseRedirect(reverse_lazy('Blog:Blog_index'))
 
     user = request.user

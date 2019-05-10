@@ -1,6 +1,6 @@
 from django.urls import path
-from .views import (BlogIndexView, Login, LogOut, ReplyView, Registration, 
-                    UpdateDeleteComment, VotesView)
+from .views import (BlogIndexView, Login, LogOut, ReplyHandler, Registration,
+                    UpdateDeleteComment, VotesHandler)
 
 app_name = 'Blog'
 
@@ -36,7 +36,7 @@ urlpatterns = [
         ),
     path(
         'Reply/<str:parent_comment_pk>/',
-        ReplyView,
+        ReplyHandler,
         name='Reply',
         ),
     path(
@@ -51,7 +51,7 @@ urlpatterns = [
         ),
     path(
         'Vote/<int:comment_pk>/<str:vote_type>/',
-        VotesView,
+        VotesHandler,
         name='Vote',
         ),
 ]

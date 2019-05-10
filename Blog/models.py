@@ -6,7 +6,7 @@ from django.urls import reverse
 from django.utils.text import slugify
 
 class Blurb(models.Model):
-    blurb = models.TextField(blank=True, null=True)
+    blurb = models.TextField(max_length=275, blank=True, null=True)
     creation_date = models.DateTimeField(auto_now_add=True)
 
 class BlogPost(models.Model):

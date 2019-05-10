@@ -609,3 +609,8 @@ footer {
 .edit-parent-form-buttons{
   margin-top: 5px;
 }
+
+.about-me{
+  padding-left: 2rem !important;
+  padding-right: 2rem !important; 
+}
