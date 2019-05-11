@@ -116,6 +116,17 @@ STATICFILES_DIRS = [STATIC_DIR, ]
 MEDIA_URL = '/media/'
 
 CKEDITOR_CONFIGS = {
+    'ckeditor': {
+        'skin': 'moono-lisa',
+        'toolbar': 'Custom',
+        'toolbar_Custom': [
+            ['Styles'],
+            ['Bold', 'Italic', 'Underline'],
+            ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+            ],
+        'height': 200,
+        'width': 1110,
+    },
     'ckeditor_comments': {
         'skin': 'moono-lisa',
         'toolbar': 'Custom',
