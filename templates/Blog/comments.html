@@ -86,12 +86,13 @@
         </div>
         <div class="vote-reply-score">
           <span class="score" data-id="{{ comment.pk }}" >{{ comment.score }}</span>
-            {% if user == comment.user %}
+              {% if user.is_authenticated %}
               <a class="upvote" comment-id="{{ comment.pk }}" href="{% url "Blog:Vote" comment_pk=comment.pk vote_type="upvote" %}"><i class="fas fa-chevron-up"></i></a>
               |
               <a class="downvote" comment-id="{{ comment.pk }}" href="{% url "Blog:Vote" comment_pk=comment.pk vote_type="downvote" %}"><i class="fas fa-chevron-down"></i></a>
               <a class="reply" comment-id="{{ comment.pk }}" ><u>Reply</u></a>
               <span class="change-comment" style="display:''" comment-id="{{ comment.pk }}">
+              {% if user == comment.user %}
                 <a class="edit_comment edit-parent" comment-id="{{ comment.pk }}" href="#"><u>Edit</u></a>
                 <a class="delete_comment" comment-id={{ comment.pk }} href="{% url "Blog:Delete_comment" comment_pk=comment.pk %}"><u>Delete</u></a>
               </span>
@@ -100,6 +101,7 @@
                 <a class="confirm-delete-yes" comment-id="{{ comment.pk }}" href="{% url "Blog:Delete_comment" comment_pk=comment.pk %}">yes</a> /
                 <a class="confirm-delete-no" comment-id="{{ comment.pk }}" href="#">no</a>
               </span>
+              {% endif %}
             {% else %}
               <a class="vote-unauth"><i class="fas fa-chevron-up"></i></a>
               |
