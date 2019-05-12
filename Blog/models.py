@@ -49,6 +49,7 @@ class Comment(models.Model):
         )
     body = RichTextField(blank=False, config_name='ckeditor_comments')
     commented_at = models.DateTimeField(auto_now_add=True)
+    comment_date = models.DateField(auto_now_add=True, null=True)
     votes = models.ManyToManyField(get_user_model(), blank=True)
     score = models.IntegerField(default=0)
     is_reply = models.BooleanField(default=False, null=True)

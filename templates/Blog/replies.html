@@ -15,7 +15,7 @@
     {% for reply in parent_comment.replies.all reversed %}
     <div class="reply-container">
       <div class="comment-name-date">
-        <h6><strong>{{ reply.user }}</strong> | {{ reply.commented_at }}</h6>
+        <h6><strong>{{ reply.user }}</strong> | {{ reply.comment_date }}</h6>
       </div>
       <div class="reply-body" comment-id="{{ reply.pk }}">
         {{reply.reply_body}}
@@ -73,7 +73,7 @@
     {% for reply in comment.replies.all reversed %}
     <div class="reply-container">
       <div class="comment-name-date">
-        <h6><strong>{{ reply.user }}</strong> | {{ reply.commented_at }}</h6>
+        <h6><strong>{{ reply.user }}</strong> | {{ reply.comment_date }}</h6>
       </div>
       <div class="reply-body" comment-id="{{ reply.pk }}">
         {{reply.reply_body}}

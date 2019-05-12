@@ -18,7 +18,7 @@
       <hr>
       <div class="comments">
         <div class="comment-name-date">
-          <h6><strong>{{ comment.user }}</strong> | {{ comment.commented_at }}</h6>
+          <h6><strong>{{ comment.user }}</strong> | {{ comment.comment_date }}</h6>
         </div>
         <div class="comment-body" comment-id="{{ comment.pk }}" >
           {{ comment.body|safe }}
@@ -83,7 +83,7 @@
       <hr>
       <div class="comments">
         <div class="comment-name-date">
-          <h6><strong>{{ comment.user }}</strong> | {{ comment.commented_at }}</h6>
+          <h6><strong>{{ comment.user }}</strong> | {{ comment.comment_date }}</h6>
         </div>
         <div class="comment-body" comment-id="{{ comment.pk }}" >
           {{ comment.body|safe }}
