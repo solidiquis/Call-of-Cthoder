@@ -19,7 +19,7 @@ class IndexView(TemplateView):
         else:
             blurb = 'Placeholder'
 
-        context['blurb'] = blurb
+        context['blurb'] = blurb.intro
 
         # Generates context for the about me section
         if AboutMe.objects.first() is not None:

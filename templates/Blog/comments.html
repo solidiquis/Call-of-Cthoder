@@ -3,11 +3,15 @@
 
 {% if commented %}
 
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/default.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+<script>hljs.initHighlighting();</script>
 <script src="{% static "base/js/vote.js" %}" charset="utf-8"></script>
 <script src="{% static "base/js/delete_comment.js" %}" charset="utf-8"></script>
 <script src="{% static "base/js/edit_comment.js" %}" charset="utf-8"></script>
 <script src="{% static "base/js/reply.js" %}" charset="utf-8"></script>
 <script src="{% static "base/js/reply_secondary.js" %}" charset="utf-8"></script>
+
 
   {% for comment in comments %}
     {% if not comment.is_reply %}
